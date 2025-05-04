@@ -98,17 +98,13 @@ if not os.path.exists(model_path):
         with open(model_path, "wb") as f:
             f.write(response.content)
 
-# Load the model
+# ---- Load the model ----
 model = tf.keras.models.load_model(model_path)
 
-# Page config
-st.set_page_config(page_title="Face Recognition — But Make It Fun 😎", layout="centered")
-
-# Title
-st.title("🧠 Face Recognition With Attitude")
+# ---- UI Elements ----
+st.title("Face-ception: AI Knows Beauty When It Sees It")
 st.caption("Not just a model... I'm judging your face with style.")
 
-# Personas, compliments, etc.
 personas = [
     "The Overthinker", "The Last-Minute Email Checker", "The 'Just Woke Up' Face",
     "The Snack Ninja", "The 'I Swear I'm Not Tired' Look", "The Zoom Meeting Legend",
@@ -121,7 +117,12 @@ compliments = [
     "Face detected: statistically flawless.",
     "Mirror: shattered from envy.",
     "If facial recognition had favorites, it would be you.",
-    "AI says: Wow. Just wow."
+    "AI says: Wow. Just wow.",
+    "🎯 Target locked: Absolute visual excellence.",
+    "💫 Some faces are made for deep learning. Yours rewrote the layers.",
+    "🌸 Eyelids like whispers, symmetry like sonnets. You didn’t wake up like this—you evolved.",
+    "🎨 If beauty were a dataset, you’d be the anomaly poets whisper about.",
+    "🧠 AI says: 'Finally, someone worthy of my neurons.'"
 ]
 
 roasts = [
@@ -129,7 +130,11 @@ roasts = [
     "Hmm. This face triggers our sarcasm module.",
     "Are you sure this isn’t AI-generated?",
     "Confidence: 3%. You may be a ghost.",
-    "Might be a potato. But a nice potato."
+    "Might be a potato. But a nice potato.",
+    "🥔 This face confuses pixels. Are you… a boiled vegetable?",
+    "🚨 Model alert: Too symmetrical to be random, too cursed to be deliberate.",
+    "📉 Beauty error 404. Please reboot your camera. Or your genetics.",
+    "📸 Your photo lowered the model's accuracy. It's sending a resignation email."
 ]
 
 mystery_messages = [
@@ -140,7 +145,7 @@ mystery_messages = [
     "🧠 I’m basically a face psychic with less fraud."
 ]
 
-# Upload
+# ---- Upload and Predict ----
 uploaded_file = st.file_uploader("Upload your photo and let's see what you're hiding 🧐", type=["jpg", "jpeg", "png"])
 
 if uploaded_file:
@@ -156,26 +161,26 @@ if uploaded_file:
     prob = prediction[0][0]
 
     st.markdown("---")
-
     persona = random.choice(personas)
 
     if prob < 0.5:
         st.balloons()
-        st.success("✅ Face recognized: Welcome back, legend.")
+        st.success("🎯 Target locked: Absolute visual excellence.")
         st.markdown(f"💎 {random.choice(compliments)}")
-        st.markdown(f"🕵️ Identity match: **{persona}**")
-        st.progress(100, text="Confidence: Unshakeable")
+        st.progress(100, text="Aesthetic alignment: Celestial")
+
     else:
-        st.warning("❓ Unrecognized. This face confuses even my deep layers.")
+        st.warning("😬 Unrecognized. Even my GPU flinched.")
+        st.markdown(f"💀 {random.choice(roasts)}") 
+        st.error("💀 You’ve got a face only back-end code could love.")
         st.markdown(f"🧩 You might be... **{persona}** — or someone in disguise.")
-        st.error(random.choice(roasts))
-        st.slider("Confidence (self-rated)", 0, 100, value=random.randint(50, 90), help="Because self-esteem matters too 😌")
+        st.caption("📝 Model Notes: *'Consider hiding behind a firewall next time.'*")
+        st.slider("On a scale of 0 to fabulous, where do *you* place yourself?", 0, 100, value=random.randint(25, 60), help="Confidence is free, looks are optional.")
 
     st.markdown("---")
     st.info(random.choice(mystery_messages))
 
-    if st.button("Try another face"):
-        st.experimental_rerun()
+    
 
 else:
     st.markdown("👆 Go ahead, upload a face. Don’t worry — it won’t bite.")
